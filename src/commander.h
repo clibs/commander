@@ -15,12 +15,19 @@
 typedef struct {
   char *small;
   char *large;
-  char *desciption;
+  char *description;
 } command_option_t;
 
 typedef struct {
+  int option_count;
   command_option_t options[MAX_OPTIONS];
 } command_t;
+
+void
+command_init(command_t *self);
+
+void
+command_help(command_t *self, const char *name);
 
 void
 command_option(command_t *self, char *small, char *large, char *desc);

@@ -8,8 +8,20 @@
 #ifndef COMMANDER_H
 #define COMMANDER_H
 
-#ifndef MAX_OPTIONS
-#define MAX_OPTIONS 64
+/*
+ * Max options that can be defined.
+ */
+
+#ifndef COMMANDER_MAX_OPTIONS
+#define COMMANDER_MAX_OPTIONS 32
+#endif
+
+/*
+ * Max arguments that can be passed.
+ */
+
+#ifndef COMMANDER_MAX_ARGS
+#define COMMANDER_MAX_ARGS 32
 #endif
 
 /*
@@ -43,8 +55,10 @@ typedef struct command {
   void *data;
   const char *name;
   const char *version;
+  int argc;
+  char *argv[COMMANDER_MAX_ARGS];
   int option_count;
-  command_option_t options[MAX_OPTIONS];
+  command_option_t options[COMMANDER_MAX_OPTIONS];
 } command_t;
 
 // prototypes

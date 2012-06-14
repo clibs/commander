@@ -78,6 +78,6 @@ void
 command_option(command_t *self, const char *small, const char *large, const char *desc, command_callback_t cb);
 
 void
-command_parse(command_t *self, int argc, const char **argv);
+command_parse(command_t *self, int argc, char **argv);
 
 #endif /* COMMANDER_H */

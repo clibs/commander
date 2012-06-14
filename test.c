@@ -18,7 +18,7 @@ optional(command_t *self) {
 }
 
 int
-main(int argc, const char **argv){
+main(int argc, char **argv){
   command_t cmd;
   command_init(&cmd, argv[0], "0.0.1");
   command_option(&cmd, "-v", "--verbose", "enable verbose stuff", verbose);

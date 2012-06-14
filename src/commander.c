@@ -124,7 +124,7 @@ command_option(command_t *self, const char *small, const char *large, const char
  */
 
 void
-command_parse(command_t *self, int argc, const char **argv) {
+command_parse(command_t *self, int argc, char **argv) {
   for (int i = 1; i < argc; ++i) {
     const char *arg = argv[i];
     for (int j = 0; j < self->option_count; ++j) {

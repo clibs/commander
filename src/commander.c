@@ -9,10 +9,18 @@
 #include <string.h>
 #include "commander.h"
 
+/*
+ * Output command version.
+ */
+
 static void
 command_version(command_t *self) {
   printf("%s\n", self->version);
 }
+
+/*
+ * Output command help.
+ */
 
 void
 command_help(command_t *self) {
@@ -28,6 +36,10 @@ command_help(command_t *self) {
   printf("\n");
 }
 
+/*
+ * Initialize with program `name` and `version`.
+ */
+
 void
 command_init(command_t *self, const char *name, const char *version) {
   self->name = name;
@@ -37,6 +49,10 @@ command_init(command_t *self, const char *name, const char *version) {
   command_option(self, "-h", "--help", "Display help information", command_help);
 }
 
+/*
+ * Define an option.
+ */
+
 void
 command_option(command_t *self, const char *small, const char *large, const char *desc, command_callback_t cb) {
   command_option_t *option = &self->options[self->option_count++];
@@ -45,6 +61,12 @@ command_option(command_t *self, const char *small, const char *large, const char
   option->description = desc;
   option->cb = cb;
 }
+
+/*
+ * Parse `argv`.
+ * 
+ * TODO: list of short opts (-vo as -v -o)
+ */
 
 void
 command_parse(command_t *self, int argc, const char **argv) {

@@ -12,9 +12,21 @@
 #define MAX_OPTIONS 64
 #endif
 
+/*
+ * Command struct.
+ */
+
 struct command;
 
+/*
+ * Option callback.
+ */
+
 typedef void (* command_callback_t)(struct command *self);
+
+/*
+ * Command option.
+ */
 
 typedef struct {
   const char *small;
@@ -23,12 +35,18 @@ typedef struct {
   command_callback_t cb;
 } command_option_t;
 
+/*
+ * Command.
+ */
+
 typedef struct command {
   const char *name;
   const char *version;
   int option_count;
   command_option_t options[MAX_OPTIONS];
 } command_t;
+
+// prototypes
 
 void
 command_init(command_t *self, const char *name, const char *version);

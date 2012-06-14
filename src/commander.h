@@ -40,6 +40,7 @@ typedef struct {
  */
 
 typedef struct command {
+  void *data;
   const char *name;
   const char *version;
   int option_count;

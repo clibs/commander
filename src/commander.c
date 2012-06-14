@@ -6,8 +6,19 @@
 //
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "commander.h"
+
+/*
+ * Output error and exit.
+ */
+
+static void
+error(char *msg) {
+  fprintf(stderr, "%s\n", msg);
+  exit(1);
+}
 
 /*
  * Output command version.
@@ -79,7 +90,10 @@ command_parse(command_t *self, int argc, const char **argv) {
         goto match;
       }
     }
-    self->argv[self->argc++] = arg;
+
+    self->argc++;
+    if (self->argc == COMMANDER_MAX_ARGS) error("Maximum number of arguments exceeded");
+    self->argv[self->argc] = arg;
     match:;
   }
 }

@@ -9,12 +9,14 @@
 #include "commander.h"
 
 void
-command_init(command_t *self) {
+command_init(command_t *self, const char *name, const char *version) {
   self->option_count = 0;
+  self->name = name;
+  self->version = version;
 }
 
 void
-command_option(command_t *self, char *small, char *large, char *desc) {
+command_option(command_t *self, const char *small, const char *large, const char *desc) {
   command_option_t *option = &self->options[self->option_count++];
   option->small = small;
   option->large = large;
@@ -22,9 +24,9 @@ command_option(command_t *self, char *small, char *large, char *desc) {
 }
 
 void
-command_help(command_t *self, const char *name) {
+command_help(command_t *self) {
   printf("\n");
-  printf("  Usage: %s [options]\n", name);
+  printf("  Usage: %s [options]\n", self->name);
   printf("\n");
   printf("  Options:\n");
   printf("\n");

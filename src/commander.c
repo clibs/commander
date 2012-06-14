@@ -10,9 +10,11 @@
 
 void
 command_init(command_t *self, const char *name, const char *version) {
-  self->option_count = 0;
   self->name = name;
   self->version = version;
+  self->option_count = 0;
+  command_option(self, "-V", "--version", "Display program version");
+  command_option(self, "-h", "--help", "Display help information");
 }
 
 void

@@ -66,7 +66,9 @@ command_init(command_t *self, const char *name, const char *version) {
 
 void
 command_option(command_t *self, const char *small, const char *large, const char *desc, command_callback_t cb) {
-  command_option_t *option = &self->options[self->option_count++];
+  int n = self->option_count++;
+  if (n == COMMANDER_MAX_OPTIONS) error("Maximum option definitions exceeded");
+  command_option_t *option = &self->options[n];
   option->small = small;
   option->large = large;
   option->description = desc;
@@ -91,9 +93,9 @@ command_parse(command_t *self, int argc, const char **argv) {
       }
     }
 
-    self->argc++;
-    if (self->argc == COMMANDER_MAX_ARGS) error("Maximum number of arguments exceeded");
-    self->argv[self->argc] = arg;
+    int n = self->argc++;
+    if (n == COMMANDER_MAX_ARGS) error("Maximum number of arguments exceeded");
+    self->argv[n] = arg;
     match:;
   }
 }

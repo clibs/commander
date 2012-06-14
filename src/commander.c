@@ -160,7 +160,7 @@ command_parse(command_t *self, int argc, char **argv) {
 
     int n = self->argc++;
     if (n == COMMANDER_MAX_ARGS) error("Maximum number of arguments exceeded");
-    self->argv[n] = arg;
+    self->argv[n] = (char *) arg;
     match:;
   }
 }

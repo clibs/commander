@@ -56,7 +56,7 @@ typedef struct command {
   const char *name;
   const char *version;
   int argc;
-  char *argv[COMMANDER_MAX_ARGS];
+  const char *argv[COMMANDER_MAX_ARGS];
   int option_count;
   command_option_t options[COMMANDER_MAX_OPTIONS];
 } command_t;

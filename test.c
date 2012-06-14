@@ -19,5 +19,9 @@ main(int argc, const char **argv){
   command_option(&cmd, "-f", "--foo", "Add some foo", foo);
   command_option(&cmd, "-b", "--bar", "Add some bar", bar);
   command_parse(&cmd, argc, argv);
+  printf("args:\n");
+  for (int i = 0; i < cmd.argc; ++i) {
+    printf("  - '%s'\n", cmd.argv[i]);
+  }
   return 0;
 }

@@ -44,7 +44,7 @@ void
 command_init(command_t *self, const char *name, const char *version) {
   self->name = name;
   self->version = version;
-  self->option_count = 0;
+  self->option_count = self->argc = 0;
   command_option(self, "-V", "--version", "Display program version", command_version);
   command_option(self, "-h", "--help", "Display help information", command_help);
 }
@@ -76,7 +76,10 @@ command_parse(command_t *self, int argc, const char **argv) {
       command_option_t *option = &self->options[i];
       if (!strcmp(arg, option->small) || !strcmp(arg, option->large)) {
         option->cb(self);
+        goto match;
       }
     }
+    self->argv[self->argc++] = arg;
+    match:;
   }
 }

@@ -40,7 +40,7 @@ main(int argc, const char **argv){
 
 ```
 
-Usage: ./test [options]
+Usage: example [options]
 
 Options:
 

@@ -61,5 +61,3 @@ Options:
 ## Todo
 
   - unrecognized flags (suggestions?)
-  - args (optional)
-  - args (required)

@@ -41,8 +41,12 @@ typedef void (* command_callback_t)(struct command *self);
  */
 
 typedef struct {
+  int optional_arg;
+  int required_arg;
+  char *argname;
+  char *large;
   const char *small;
-  const char *large;
+  const char *large_with_arg;
   const char *description;
   command_callback_t cb;
 } command_option_t;
@@ -53,12 +57,13 @@ typedef struct {
 
 typedef struct command {
   void *data;
+  const char *arg;
   const char *name;
   const char *version;
-  int argc;
-  const char *argv[COMMANDER_MAX_ARGS];
   int option_count;
   command_option_t options[COMMANDER_MAX_OPTIONS];
+  int argc;
+  const char *argv[COMMANDER_MAX_ARGS];
 } command_t;
 
 // prototypes

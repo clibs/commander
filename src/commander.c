@@ -44,6 +44,11 @@ void
 command_parse(command_t *self, int argc, const char **argv) {
   for (int i = 1; i < argc; ++i) {
     const char *arg = argv[i];
-    printf("%s\n", arg);
+    for (int i = 0; i < self->option_count; ++i) {
+      command_option_t *option = &self->options[i];
+      if (!strcmp(arg, option->small) || !strcmp(arg, option->large)) {
+        
+      }
+    }
   }
 }

@@ -23,8 +23,8 @@ int
 main(int argc, const char **argv){
   command_t cmd;
   command_init(&cmd, argv[0], "0.0.1");
-  command_option(&cmd, "-f", "--foo", "Add some foo", foo);
-  command_option(&cmd, "-b", "--bar", "Add some bar", bar);
+  command_option(&cmd, "-f", "--foo", "add some foo", foo);
+  command_option(&cmd, "-b", "--bar", "add some bar", bar);
   command_parse(&cmd, argc, argv);
   printf("args:\n");
   for (int i = 0; i < cmd.argc; ++i) {
@@ -44,9 +44,9 @@ Usage: example [options]
 
 Options:
 
-  -V, --version    Display program version
-  -h, --help       Display help information
-  -f, --foo        Add some foo
-  -b, --bar        Add some bar
+  -V, --version    output program version
+  -h, --help       output help information
+  -f, --foo        add some foo
+  -b, --bar        add some bar
 
 ```

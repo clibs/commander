@@ -6,6 +6,7 @@
 //
 
 #include <stdio.h>
+#include <string.h>
 #include "commander.h"
 
 void
@@ -41,5 +42,8 @@ command_help(command_t *self) {
 
 void
 command_parse(command_t *self, int argc, const char **argv) {
-  
+  for (int i = 1; i < argc; ++i) {
+    const char *arg = argv[i];
+    printf("%s\n", arg);
+  }
 }

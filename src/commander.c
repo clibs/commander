@@ -27,6 +27,7 @@ error(char *msg) {
 static void
 command_version(command_t *self) {
   printf("%s\n", self->version);
+  exit(0);
 }
 
 /*
@@ -45,6 +46,7 @@ command_help(command_t *self) {
     printf("    %s, %-12s %s\n", option->small, option->large, option->description);
   }
   printf("\n");
+  exit(0);
 }
 
 /*

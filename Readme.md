@@ -1,7 +1,7 @@
 
 # commander.c
 
-  Commander ported to C.
+  Commander option parser ported to C.
 
 ## Example
 
@@ -32,4 +32,21 @@ main(int argc, const char **argv){
   }
   return 0;
 }
+```
+
+## Automated --help
+
+  The previous example would produce the following `--help`:
+
+```
+
+Usage: ./test [options]
+
+Options:
+
+  -V, --version    Display program version
+  -h, --help       Display help information
+  -f, --foo        Add some foo
+  -b, --bar        Add some bar
+
 ```

@@ -139,9 +139,8 @@ command_parse(command_t *self, int argc, char **argv) {
         if (option->required_arg) {
           arg = argv[++i];
           if (!arg || '-' == arg[0]) {
-            char *err = malloc(128);
-            snprintf(err, 128, "%s requires an argument", option->large);
-            error(err);
+            fprintf(stderr, "%s %s argument required\n", option->large, option->argname);
+            exit(1);
           }
           self->arg = arg;
         }
@@ -161,9 +160,8 @@ command_parse(command_t *self, int argc, char **argv) {
 
     // unrecognized
     if ('-' == arg[0]) {
-      char *err = malloc(128);
-      snprintf(err, 128, "unrecognized flag %s", arg);
-      error(err);
+      fprintf(stderr, "unrecognized flag %s\n", arg);
+      exit(1);
     }
 
     int n = self->argc++;

@@ -61,7 +61,3 @@ Options:
 ## Closure
 
   `cmd.data` is a `void *` so pass along a struct to the callbacks if you want.
-
-## Todo
-
-  - unrecognized flags (suggestions?)

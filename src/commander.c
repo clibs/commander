@@ -159,6 +159,13 @@ command_parse(command_t *self, int argc, char **argv) {
       }
     }
 
+    // unrecognized
+    if ('-' == arg[0]) {
+      char *err = malloc(128);
+      snprintf(err, 128, "unrecognized flag %s", arg);
+      error(err);
+    }
+
     int n = self->argc++;
     if (n == COMMANDER_MAX_ARGS) error("Maximum number of arguments exceeded");
     self->argv[n] = (char *) arg;

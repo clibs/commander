@@ -3,6 +3,24 @@
 
   Commander option parser ported to C.
 
+## Automated --help
+
+  The previous example would produce the following `--help`:
+
+```
+
+Usage: example [options]
+
+Options:
+
+  -V, --version                 output program version
+  -h, --help                    output help information
+  -v, --verbose                 enable verbose stuff
+  -r, --required <arg>          required arg
+  -o, --optional [arg]          optional arg
+
+```
+
 ## Example
 
 ```c
@@ -40,24 +58,10 @@ main(int argc, const char **argv){
 }
 ```
 
-## Automated --help
-
-  The previous example would produce the following `--help`:
-
-```
-
-Usage: example [options]
-
-Options:
-
-  -V, --version                 output program version
-  -h, --help                    output help information
-  -v, --verbose                 enable verbose stuff
-  -r, --required <arg>          required arg
-  -o, --optional [arg]          optional arg
-
-```
-
 ## Closure
 
   `cmd.data` is a `void *` so pass along a struct to the callbacks if you want.
+
+## Usage
+
+  `cmd.usage` defaults to "[options]".

@@ -38,7 +38,7 @@ command_version(command_t *self) {
 void
 command_help(command_t *self) {
   printf("\n");
-  printf("  Usage: %s [options]\n", self->name);
+  printf("  Usage: %s %s\n", self->name, self->usage);
   printf("\n");
   printf("  Options:\n");
   printf("\n");
@@ -63,6 +63,7 @@ command_init(command_t *self, const char *name, const char *version) {
   self->name = name;
   self->version = version;
   self->option_count = self->argc = 0;
+  self->usage = "[options]";
   command_option(self, "-V", "--version", "output program version", command_version);
   command_option(self, "-h", "--help", "output help information", command_help);
 }

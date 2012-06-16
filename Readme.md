@@ -65,4 +65,3 @@ Options:
 ## Todo
 
   - unrecognized flags (suggestions?)
-  - specify "Usage: " string

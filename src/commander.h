@@ -57,6 +57,7 @@ typedef struct {
 
 typedef struct command {
   void *data;
+  const char *usage;
   const char *arg;
   const char *name;
   const char *version;

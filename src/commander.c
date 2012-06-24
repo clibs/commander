@@ -16,9 +16,9 @@
  */
 
 static void
-error(char *msg) {
+error(command_t *self, char *msg) {
   fprintf(stderr, "%s\n", msg);
-  exit(1);
+  self->exit(1);
 }
 
 /*
@@ -28,7 +28,12 @@ error(char *msg) {
 static void
 command_version(command_t *self) {
   printf("%s\n", self->version);
-  exit(0);
+  self->exit(0);
+}
+
+static void
+doExit(int status) {
+  exit(status);
 }
 
 /*
@@ -50,7 +55,7 @@ command_help(command_t *self) {
       , option->description);
   }
   printf("\n");
-  exit(0);
+  self->exit(0);
 }
 
 /*
@@ -66,6 +71,7 @@ command_init(command_t *self, const char *name, const char *version) {
   self->usage = "[options]";
   command_option(self, "-V", "--version", "output program version", command_version);
   command_option(self, "-h", "--help", "output help information", command_help);
+  self->exit = doExit;
 }
 
 /*
@@ -102,7 +108,7 @@ parse_argname(const char *str, char *flag, char *arg) {
 void
 command_option(command_t *self, const char *small, const char *large, const char *desc, command_callback_t cb) {
   int n = self->option_count++;
-  if (n == COMMANDER_MAX_OPTIONS) error("Maximum option definitions exceeded");
+  if (n == COMMANDER_MAX_OPTIONS) error(self, "Maximum option definitions exceeded");
   command_option_t *option = &self->options[n];
   option->cb = cb;
   option->small = small;
@@ -142,7 +148,7 @@ command_parse(command_t *self, int argc, char **argv) {
           arg = argv[++i];
           if (!arg || '-' == arg[0]) {
             fprintf(stderr, "%s %s argument required\n", option->large, option->argname);
-            exit(1);
+            self->exit(1);
           }
           self->arg = arg;
         }
@@ -169,11 +175,11 @@ command_parse(command_t *self, int argc, char **argv) {
     // unrecognized
     if ('-' == arg[0] && !literal) {
       fprintf(stderr, "unrecognized flag %s\n", arg);
-      exit(1);
+      self->exit(1);
     }
 
     int n = self->argc++;
-    if (n == COMMANDER_MAX_ARGS) error("Maximum number of arguments exceeded");
+    if (n == COMMANDER_MAX_ARGS) error(self, "Maximum number of arguments exceeded");
     self->argv[n] = (char *) arg;
     match:;
   }

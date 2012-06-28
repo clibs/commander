@@ -65,3 +65,7 @@ main(int argc, const char **argv){
 ## Usage
 
   `cmd.usage` defaults to "[options]".
+
+## Links
+
+  - Used by the [mon(1)](https://github.com/visionmedia/mon/blob/master/src/mon.c) process monitor

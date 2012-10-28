@@ -1,0 +1,9 @@
+{
+  "name": "commander",
+  "version": "0.0.1",
+  "repo": "visionmedia/commander.c",
+  "description": "Command-line argument parser",
+  "keywords": ["cli", "command", "parser", "argv", "args", "options"],
+  "license": "MIT",
+  "src": ["src/commander.h", "src/commander.c"]
+}

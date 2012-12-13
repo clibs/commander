@@ -70,6 +70,22 @@ command_init(command_t *self, const char *name, const char *version) {
 }
 
 /*
+ * Clean up the command after use.
+ */
+
+void
+command_clean(command_t *self) {
+  for (int i = 0; i < self->option_count; ++i) {
+    command_option_t *option = &self->options[i];
+    free(option->argname);
+    option->argname = NULL;
+    free(option->large);
+    option->large = NULL;
+  }
+  memset(self, 0, sizeof(*self));
+}
+
+/*
  * Parse argname from `str`. For example
  * Take "--required <arg>" and populate `flag`
  * with "--required" and `arg` with "<arg>".

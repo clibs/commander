@@ -54,6 +54,7 @@ main(int argc, const char **argv){
   for (int i = 0; i < cmd.argc; ++i) {
     printf("  - '%s'\n", cmd.argv[i]);
   }
+  command_clean(&cmd);
   return 0;
 }
 ```

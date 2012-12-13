@@ -69,6 +69,22 @@ command_init(command_t *self, const char *name, const char *version) {
 }
 
 /*
+ * Clean up the command after use.
+ */
+
+void
+command_clean(command_t *self) {
+  for (int i = 0; i < self->option_count; ++i) {
+    command_option_t *option = &self->options[i];
+    free(option->argname);
+    option->argname = NULL;
+    free(option->large);
+    option->large = NULL;
+  }
+  memset(self, 0, sizeof(*self));
+}
+
+/*
  * Parse argname from `str`. For example
  * Take "--required <arg>" and populate `flag`
  * with "--required" and `arg` with "<arg>".
@@ -91,8 +107,8 @@ parse_argname(const char *str, char *flag, char *arg) {
     }
   }
 
-  arg[argpos] = 0;
-  flag[flagpos] = 0;
+  arg[argpos] = '\0';
+  flag[flagpos] = '\0';
 }
 
 /*
@@ -109,9 +125,9 @@ command_option(command_t *self, const char *small, const char *large, const char
   option->description = desc;
   option->required_arg = option->optional_arg = 0;
   option->large_with_arg = large;
-  option->argname = malloc(strlen(large));
+  option->argname = malloc(strlen(large)+1);
   assert(option->argname);
-  option->large = malloc(strlen(large));
+  option->large = malloc(strlen(large)+1);
   assert(option->large);
   parse_argname(large, option->large, option->argname);
   if ('[' == option->argname[0]) option->optional_arg = 1;

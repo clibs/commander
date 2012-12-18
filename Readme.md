@@ -70,7 +70,12 @@ main(int argc, const char **argv){
 
   - Used by the [mon(1)](https://github.com/visionmedia/mon/blob/master/src/mon.c) process monitor
 
-## License 
+## Short flags
+
+  Compound short flags are automatically expanded to their canonical form. For example `-vLO` would
+  become `-v -L -O`.
+
+## License
 
 (The MIT License)
 

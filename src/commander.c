@@ -64,6 +64,7 @@ command_init(command_t *self, const char *name, const char *version) {
   self->version = version;
   self->option_count = self->argc = 0;
   self->usage = "[options]";
+  self->nargv = NULL;
   command_option(self, "-V", "--version", "output program version", command_version);
   command_option(self, "-h", "--help", "output help information", command_help);
 }
@@ -209,8 +210,7 @@ command_parse_args(command_t *self, int argc, char **argv) {
 
     int n = self->argc++;
     if (n == COMMANDER_MAX_ARGS) error("Maximum number of arguments exceeded");
-    self->argv[n] = malloc(strlen(arg) + 1);
-    strcpy(self->argv[n], arg);
+    self->argv[n] = (char *) arg;
     match:;
   }
 }
@@ -221,8 +221,6 @@ command_parse_args(command_t *self, int argc, char **argv) {
 
 void
 command_parse(command_t *self, int argc, char **argv) {
-  char **nargv = normalize_args(&argc, argv);
-  command_parse_args(self, argc, nargv);
-  for (int i = 0; i < argc; i++) free(nargv[i]);
-  free(nargv);
+  self->nargv = normalize_args(&argc, argv);
+  command_parse_args(self, argc, self->nargv);
 }

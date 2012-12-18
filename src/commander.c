@@ -98,7 +98,7 @@ parse_argname(const char *str, char *flag, char *arg) {
 /*
  * Normalize the argument vector by exploding
  * multiple options (if any). For example
- * "foo -abc --scm git" -> "foo -a -b -c --scm git`
+ * "foo -abc --scm git" -> "foo -a -b -c --scm git"
  */
 
 static char **

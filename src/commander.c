@@ -80,6 +80,13 @@ command_free(command_t *self) {
     free(option->argname);
     free(option->large);
   }
+
+  if (self->nargv) {
+    for (int i = 0; self->nargv[i]; ++i) {
+      free(self->nargv[i]);
+    }
+    free(self->nargv);
+  }
 }
 
 /*

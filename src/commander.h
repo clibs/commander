@@ -74,7 +74,7 @@ void
 command_init(command_t *self, const char *name, const char *version);
 
 void
-command_clean(command_t *self);
+command_free(command_t *self);
 
 void
 command_help(command_t *self);

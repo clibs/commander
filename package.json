@@ -1,6 +1,6 @@
 {
   "name": "commander",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "repo": "visionmedia/commander.c",
   "description": "Command-line argument parser",
   "keywords": ["cli", "command", "parser", "argv", "args", "options"],

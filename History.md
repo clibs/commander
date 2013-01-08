@@ -1,4 +1,11 @@
 
+1.2.1 / 2013-01-08 
+==================
+
+  * add freeing of normalized argv
+  * dont worry about zeroing in command_free()
+  * fix docs
+
 1.2.0 / 2013-01-08 
 ==================
 

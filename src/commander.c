@@ -42,13 +42,16 @@ command_help(command_t *self) {
   printf("\n");
   printf("  Options:\n");
   printf("\n");
-  for (int i = 0; i < self->option_count; ++i) {
+
+  int i;
+  for (i = 0; i < self->option_count; ++i) {
     command_option_t *option = &self->options[i];
     printf("    %s, %-25s %s\n"
       , option->small
       , option->large_with_arg
       , option->description);
   }
+  
   printf("\n");
   exit(0);
 }
@@ -75,14 +78,16 @@ command_init(command_t *self, const char *name, const char *version) {
 
 void
 command_free(command_t *self) {
-  for (int i = 0; i < self->option_count; ++i) {
+  int i;
+
+  for (i = 0; i < self->option_count; ++i) {
     command_option_t *option = &self->options[i];
     free(option->argname);
     free(option->large);
   }
 
   if (self->nargv) {
-    for (int i = 0; self->nargv[i]; ++i) {
+    for (i = 0; self->nargv[i]; ++i) {
       free(self->nargv[i]);
     }
     free(self->nargv);
@@ -101,8 +106,9 @@ parse_argname(const char *str, char *flag, char *arg) {
   size_t flagpos = 0;
   size_t argpos = 0;
   size_t len = strlen(str);
+  int i;
 
-  for (int i = 0; i < len; ++i) {
+  for (i = 0; i < len; ++i) {
     if (buffer || '[' == str[i] || '<' == str[i]) {
       buffer = 1;
       arg[argpos++] = str[i];
@@ -127,8 +133,9 @@ normalize_args(int *argc, char **argv) {
   int size = 0;
   int alloc = *argc + 1;
   char **nargv = malloc(alloc * sizeof(char *));
+  int i, j;
 
-  for (int i = 0; argv[i]; ++i) {
+  for (i = 0; argv[i]; ++i) {
     const char *arg = argv[i];
     int len = strlen(arg);
 
@@ -136,7 +143,7 @@ normalize_args(int *argc, char **argv) {
     if (len > 2 && '-' == arg[0] && !strchr(arg + 1, '-')) {
       alloc += len - 2;
       nargv = realloc(nargv, alloc * sizeof(char *));
-      for (int j = 1; j < len; ++j) {
+      for (j = 1; j < len; ++j) {
         nargv[size] = malloc(3);
         sprintf(nargv[size], "-%c", arg[j]);
         size++;
@@ -187,10 +194,11 @@ command_option(command_t *self, const char *small, const char *large, const char
 static void
 command_parse_args(command_t *self, int argc, char **argv) {
   int literal = 0;
+  int i, j;
 
-  for (int i = 1; i < argc; ++i) {
+  for (i = 1; i < argc; ++i) {
     const char *arg = argv[i];
-    for (int j = 0; j < self->option_count; ++j) {
+    for (j = 0; j < self->option_count; ++j) {
       command_option_t *option = &self->options[j];
 
       // match flag

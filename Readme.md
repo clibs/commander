@@ -1,4 +1,3 @@
-
 # commander
 
   Commander option parser ported to C.
@@ -13,7 +12,7 @@ $ clib install clibs/commander
 
 ## Automated --help
 
-  The previous example would produce the following `--help`:
+  The [example](#example) below would produce the following `--help`:
 
 ```
 

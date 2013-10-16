@@ -255,4 +255,5 @@ void
 command_parse(command_t *self, int argc, char **argv) {
   self->nargv = normalize_args(&argc, argv);
   command_parse_args(self, argc, self->nargv);
+  self->argv[self->argc] = NULL;
 }

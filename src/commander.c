@@ -51,7 +51,7 @@ command_help(command_t *self) {
       , option->large_with_arg
       , option->description);
   }
-  
+
   printf("\n");
   exit(0);
 }
@@ -137,7 +137,7 @@ normalize_args(int *argc, char **argv) {
 
   for (i = 0; argv[i]; ++i) {
     const char *arg = argv[i];
-    int len = strlen(arg);
+    size_t len = strlen(arg);
 
     // short flag
     if (len > 2 && '-' == arg[0] && !strchr(arg + 1, '-')) {

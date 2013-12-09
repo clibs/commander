@@ -28,6 +28,7 @@ error(char *msg) {
 static void
 command_version(command_t *self) {
   printf("%s\n", self->version);
+  command_free(self);
   exit(0);
 }
 
@@ -53,6 +54,7 @@ command_help(command_t *self) {
   }
 
   printf("\n");
+  command_free(self);
   exit(0);
 }
 
@@ -168,8 +170,11 @@ normalize_args(int *argc, char **argv) {
 
 void
 command_option(command_t *self, const char *small, const char *large, const char *desc, command_callback_t cb) {
+  if (self->option_count == COMMANDER_MAX_OPTIONS) {
+    command_free(self);
+    error("Maximum option definitions exceeded");
+  }
   int n = self->option_count++;
-  if (n == COMMANDER_MAX_OPTIONS) error("Maximum option definitions exceeded");
   command_option_t *option = &self->options[n];
   option->cb = cb;
   option->small = small;
@@ -210,6 +215,7 @@ command_parse_args(command_t *self, int argc, char **argv) {
           arg = argv[++i];
           if (!arg || '-' == arg[0]) {
             fprintf(stderr, "%s %s argument required\n", option->large, option->argname);
+            command_free(self);
             exit(1);
           }
           self->arg = arg;
@@ -237,11 +243,15 @@ command_parse_args(command_t *self, int argc, char **argv) {
     // unrecognized
     if ('-' == arg[0] && !literal) {
       fprintf(stderr, "unrecognized flag %s\n", arg);
+      command_free(self);
       exit(1);
     }
 
     int n = self->argc++;
-    if (n == COMMANDER_MAX_ARGS) error("Maximum number of arguments exceeded");
+    if (n == COMMANDER_MAX_ARGS) {
+      command_free(self);
+      error("Maximum number of arguments exceeded");
+    }
     self->argv[n] = (char *) arg;
     match:;
   }

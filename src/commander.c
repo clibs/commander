@@ -108,7 +108,7 @@ parse_argname(const char *str, char *flag, char *arg) {
   size_t flagpos = 0;
   size_t argpos = 0;
   size_t len = strlen(str);
-  int i;
+  size_t i;
 
   for (i = 0; i < len; ++i) {
     if (buffer || '[' == str[i] || '<' == str[i]) {

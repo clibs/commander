@@ -3,7 +3,7 @@
 #include "src/commander.h"
 
 static void
-verbose(command_t *self) {
+verbose() {
   printf("verbose: enabled\n");
 }
 

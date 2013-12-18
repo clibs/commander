@@ -1,4 +1,11 @@
 
+1.3.2 / 2013-12-18
+==================
+
+ * ANSI it up
+ * fix comparison warning
+ * fix warning when compiling with -Wshorten-64-to-32 flag
+
 1.3.1 / 2013-10-15 
 ==================
 

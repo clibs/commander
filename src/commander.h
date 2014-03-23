@@ -1,9 +1,9 @@
 
-//
-// commander.h
-//
-// Copyright (c) 2012 TJ Holowaychuk <tj@vision-media.ca>
-//
+/*
+ * commander.h
+ *
+ * Copyright (c) 2012 TJ Holowaychuk <tj@vision-media.ca>
+ */
 
 #ifndef COMMANDER_H
 #define COMMANDER_H
@@ -68,7 +68,7 @@ typedef struct command {
   char **nargv;
 } command_t;
 
-// prototypes
+/* prototypes */
 
 void
 command_init(command_t *self, const char *name, const char *version);

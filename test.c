@@ -26,7 +26,8 @@ main(int argc, char **argv){
   command_option(&cmd, "-o", "--optional [arg]", "optional arg", optional);
   command_parse(&cmd, argc, argv);
   printf("additional args:\n");
-  for (int i = 0; i < cmd.argc; ++i) {
+  int i;
+  for (i = 0; i < cmd.argc; ++i) {
     printf("  - '%s'\n", cmd.argv[i]);
   }
   command_free(&cmd);

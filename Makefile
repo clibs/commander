@@ -1,6 +1,6 @@
 
 test: test.c src/commander.c
-	$(CC) $^ -o $@ -Wall -Wextra
+	$(CC) $^ -o $@ -std=c89 -Wall -Wextra
 
 clean:
 	rm -f test

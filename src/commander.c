@@ -1,9 +1,9 @@
 
-//
-// commander.c
-//
-// Copyright (c) 2012 TJ Holowaychuk <tj@vision-media.ca>
-//
+/*
+ * commander.h
+ *
+ * Copyright (c) 2012 TJ Holowaychuk <tj@vision-media.ca>
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -141,11 +141,12 @@ normalize_args(int *argc, char **argv) {
     const char *arg = argv[i];
     size_t len = strlen(arg);
 
-    // short flag
+    /* short flag */
     if (len > 2 && '-' == arg[0] && !strchr(arg + 1, '-')) {
+      size_t j;
       alloc += len - 2;
       nargv = realloc(nargv, alloc * sizeof(char *));
-      for (size_t j = 1; j < len; ++j) {
+      for (j = 1; j < len; ++j) {
         nargv[size] = malloc(3);
         sprintf(nargv[size], "-%c", arg[j]);
         size++;
@@ -153,7 +154,7 @@ normalize_args(int *argc, char **argv) {
       continue;
     }
 
-    // regular arg
+    /* regular arg */
     nargv[size] = malloc(len + 1);
     strcpy(nargv[size], arg);
     size++;
@@ -206,11 +207,11 @@ command_parse_args(command_t *self, int argc, char **argv) {
     for (j = 0; j < self->option_count; ++j) {
       command_option_t *option = &self->options[j];
 
-      // match flag
+      /* match flag */
       if (!strcmp(arg, option->small) || !strcmp(arg, option->large)) {
         self->arg = NULL;
 
-        // required
+        /* required */
         if (option->required_arg) {
           arg = argv[++i];
           if (!arg || '-' == arg[0]) {
@@ -221,26 +222,26 @@ command_parse_args(command_t *self, int argc, char **argv) {
           self->arg = arg;
         }
 
-        // optional
+        /* optional */
         if (option->optional_arg) {
           if (argv[i + 1] && '-' != argv[i + 1][0]) {
             self->arg = argv[++i];
           }
         }
 
-        // invoke callback
+        /* invoke callback */
         option->cb(self);
         goto match;
       }
     }
 
-    // --
+    /* -- */
     if ('-' == arg[0] && '-' == arg[1] && 0 == arg[2]) {
       literal = 1;
       goto match;
     }
 
-    // unrecognized
+    /* unrecognized */
     if ('-' == arg[0] && !literal) {
       fprintf(stderr, "unrecognized flag %s\n", arg);
       command_free(self);

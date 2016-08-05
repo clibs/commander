@@ -22,6 +22,7 @@ Commands:
 
   test1, test1 sub command
   test2, test2 sub command
+  test3, test3 sub command
 
 Options:
 

@@ -40,12 +40,21 @@ void
 command_help(command_t *self) {
   printf("\n");
   printf("  Usage: %s %s\n", self->name, self->usage);
+
+  printf("\n");
+  printf("  Commands:\n");
+  printf("\n");
+
+  for (int i = 0; i < self->command_count; ++i) {
+    sub_command_t *cmd = &self->commands[i];
+    printf("    %s, %s\n", cmd->cmd_name, cmd->description);
+  }
+
   printf("\n");
   printf("  Options:\n");
   printf("\n");
 
-  int i;
-  for (i = 0; i < self->option_count; ++i) {
+  for (int i = 0; i < self->option_count; ++i) {
     command_option_t *option = &self->options[i];
     printf("    %s, %-25s %s\n"
       , option->small
@@ -68,6 +77,7 @@ command_init(command_t *self, const char *name, const char *version) {
   self->name = name;
   self->version = version;
   self->option_count = self->argc = 0;
+  self->command_count = 0;
   self->usage = "[options]";
   self->nargv = NULL;
   command_option(self, "-V", "--version", "output program version", command_version);
@@ -191,6 +201,23 @@ command_option(command_t *self, const char *small, const char *large, const char
 }
 
 /*
+ * Define an sub command.
+ */
+ 
+void 
+command_sub(command_t *self, const char *cmd_name, const char *desc, command_callback_t cb) {
+  if (self->command_count == COMMANDER_MAX_OPTIONS) {
+    command_free(self);
+    error("Maximum sub command definitions exceeded");
+  }
+  int n = self->command_count++;
+  sub_command_t *cmd = &self->commands[n];
+  cmd->cb = cb;
+  cmd->cmd_name = cmd_name;
+  cmd->description = desc;
+ }
+
+/*
  * Parse `argv` (internal).
  * Input arguments should be normalized first
  * see `normalize_args`.
@@ -267,3 +294,30 @@ command_parse(command_t *self, int argc, char **argv) {
   command_parse_args(self, argc, self->nargv);
   self->argv[self->argc] = NULL;
 }
+
+/*
+ * Run commandRun command
+ */
+
+void
+command_run(command_t *self) {
+  const char *cli_cmd = self->argv[0];
+  if (cli_cmd == NULL) {
+    printf("At least one sub command required, see help by passing -h\n"); 
+    exit(1);
+  }
+ 
+  int pos = -1;
+  for (int i = 0; i < self->command_count; i++) {
+    if (strcmp(self->commands[i].cmd_name, cli_cmd) == 0) {
+      pos = i;
+    }
+  }
+ 
+  if (pos > -1) {
+    self->commands[pos].cb(self);
+  } else {
+    printf("No sub command %s defined.", cli_cmd); 
+    exit(1);
+  }
+ }

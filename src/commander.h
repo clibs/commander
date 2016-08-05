@@ -17,6 +17,14 @@
 #endif
 
 /*
+ * Max sub commands that can be defined.
+ */
+
+#ifndef COMMANDER_MAX_SUB_COMMANDS
+#define COMMANDER_MAX_SUB_COMMANDS 32
+#endif
+
+/*
  * Max arguments that can be passed.
  */
 
@@ -52,6 +60,14 @@ typedef struct {
 } command_option_t;
 
 /*
+ * Sub command.
+ */
+typedef struct {
+    const char *cmd_name;
+    const char *description;
+    command_callback_t cb;
+} sub_command_t;
+/*
  * Command.
  */
 
@@ -63,6 +79,8 @@ typedef struct command {
   const char *version;
   int option_count;
   command_option_t options[COMMANDER_MAX_OPTIONS];
+  int command_count;
+  sub_command_t commands[COMMANDER_MAX_SUB_COMMANDS];
   int argc;
   char *argv[COMMANDER_MAX_ARGS];
   char **nargv;
@@ -83,6 +101,12 @@ void
 command_option(command_t *self, const char *small, const char *large, const char *desc, command_callback_t cb);
 
 void
+command_sub(command_t *self, const char *name, const char *desc, command_callback_t cb);
+
+void
 command_parse(command_t *self, int argc, char **argv);
+
+void
+command_run(command_t *self);
 
 #endif /* COMMANDER_H */

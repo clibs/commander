@@ -201,7 +201,7 @@ command_option(command_t *self, const char *small, const char *large, const char
 }
 
 /*
- * Define an sub command.
+ * Define a sub command.
  */
  
 void 
@@ -296,7 +296,7 @@ command_parse(command_t *self, int argc, char **argv) {
 }
 
 /*
- * Run commandRun command
+ * Run command
  */
 
 void

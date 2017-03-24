@@ -3,7 +3,21 @@
   "version": "1.3.2",
   "repo": "clibs/commander",
   "description": "Command-line argument parser",
-  "keywords": ["cli", "command", "parser", "argv", "args", "options"],
+  "keywords": [
+    "cli",
+    "command",
+    "parser",
+    "argv",
+    "args",
+    "options"
+  ],
   "license": "MIT",
-  "src": ["src/commander.h", "src/commander.c"]
+  "src": [
+    "src/commander.h",
+    "src/commander.c"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/visionmedia/commander.c.git"
+  }
 }

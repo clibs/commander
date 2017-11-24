@@ -248,11 +248,9 @@ command_parse_args(command_t *self, int argc, char **argv) {
     // --
     if ('-' == arg[0] && '-' == arg[1] && 0 == arg[2]) {
       literal = 1;
-      printf("in double: %s %s\n",argv[i+1],argv[i+2]);
       self->argv[self->argc++] = (char *) argv[i+1];
-      i += 2;
-      break;
-      //goto match;
+      i++;
+      continue;
     }
 
     // unrecognized

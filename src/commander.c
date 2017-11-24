@@ -140,6 +140,16 @@ normalize_args(int *argc, char **argv) {
   for (i = 0; argv[i]; ++i) {
     const char *arg = argv[i];
     size_t len = strlen(arg);
+    
+    if(len == 2 && '-' == arg[0] && '-' == arg[1])
+    {
+        nargv[size] = malloc(len+1);
+        strcpy(nargv[size++], arg);
+        nargv[size] = malloc(strlen(argv[i+1]) + 1);
+        strcpy(nargv[size++],argv[i+1]);
+        i++;
+        continue;
+    }
 
     // short flag
     if (len > 2 && '-' == arg[0] && !strchr(arg + 1, '-')) {
@@ -153,6 +163,7 @@ normalize_args(int *argc, char **argv) {
       continue;
     }
 
+    printf("regular arg: %s\n", arg);
     // regular arg
     nargv[size] = malloc(len + 1);
     strcpy(nargv[size], arg);
@@ -237,7 +248,11 @@ command_parse_args(command_t *self, int argc, char **argv) {
     // --
     if ('-' == arg[0] && '-' == arg[1] && 0 == arg[2]) {
       literal = 1;
-      goto match;
+      printf("in double: %s %s\n",argv[i+1],argv[i+2]);
+      self->argv[self->argc++] = (char *) argv[i+1];
+      i += 2;
+      break;
+      //goto match;
     }
 
     // unrecognized

@@ -146,8 +146,7 @@ normalize_args(int *argc, char **argv) {
         nargv[size] = malloc(len+1);
         strcpy(nargv[size++], arg);
         nargv[size] = malloc(strlen(argv[i+1]) + 1);
-        strcpy(nargv[size++],argv[i+1]);
-        i++;
+        strcpy(nargv[size++],argv[++i]);
         continue;
     }
 
@@ -163,7 +162,6 @@ normalize_args(int *argc, char **argv) {
       continue;
     }
 
-    printf("regular arg: %s\n", arg);
     // regular arg
     nargv[size] = malloc(len + 1);
     strcpy(nargv[size], arg);

@@ -46,9 +46,12 @@ command_help(command_t *self) {
 
   int i;
   for (i = 0; i < self->option_count; ++i) {
+    int omittedShort = 0;
     command_option_t *option = &self->options[i];
-    printf("    %s, %-25s %s\n"
-      , option->small
+    omittedShort = option->small == NULL;
+    printf("    %s%c %-25s %s\n"
+      , omittedShort ? "  " : option->small
+      , omittedShort ? ' ' : ','
       , option->large_with_arg
       , option->description);
   }
@@ -207,7 +210,7 @@ command_parse_args(command_t *self, int argc, char **argv) {
       command_option_t *option = &self->options[j];
 
       // match flag
-      if (!strcmp(arg, option->small) || !strcmp(arg, option->large)) {
+      if ((option->small != NULL && !strcmp(arg, option->small)) || !strcmp(arg, option->large)) {
         self->arg = NULL;
 
         // required

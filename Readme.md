@@ -10,6 +10,13 @@
 $ clib install clibs/commander
 ```
 
+# Build
+  Build this projecta with cmake
+
+```
+$ mkdir build &&cd build && cmake ../
+```
+
 ## Automated --help
 
   The [example](#example) below would produce the following `--help`:

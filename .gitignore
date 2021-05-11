@@ -1,2 +1,5 @@
 *.o
 test
+.exe
+build/
+.vscode/

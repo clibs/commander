@@ -15,8 +15,7 @@
  * Output error and exit.
  */
 
-static void
-error(char *msg) {
+static void error(char *msg) {
   fprintf(stderr, "%s\n", msg);
   exit(1);
 }
@@ -25,8 +24,7 @@ error(char *msg) {
  * Output command version.
  */
 
-static void
-command_version(command_t *self) {
+static void command_version(command_t *self) {
   printf("%s\n", self->version);
   command_free(self);
   exit(0);
@@ -36,8 +34,7 @@ command_version(command_t *self) {
  * Output command help.
  */
 
-void
-command_help(command_t *self) {
+void command_help(command_t *self) {
   printf("\n");
   printf("  Usage: %s %s\n", self->name, self->usage);
   printf("\n");
@@ -62,8 +59,7 @@ command_help(command_t *self) {
  * Initialize with program `name` and `version`.
  */
 
-void
-command_init(command_t *self, const char *name, const char *version) {
+void command_init(command_t *self, const char *name, const char *version) {
   self->arg = NULL;
   self->name = name;
   self->version = version;
@@ -78,8 +74,7 @@ command_init(command_t *self, const char *name, const char *version) {
  * Free up commander after use.
  */
 
-void
-command_free(command_t *self) {
+void command_free(command_t *self) {
   int i;
 
   for (i = 0; i < self->option_count; ++i) {
@@ -102,8 +97,7 @@ command_free(command_t *self) {
  * with "--required" and `arg` with "<arg>".
  */
 
-static void
-parse_argname(const char *str, char *flag, char *arg) {
+static void parse_argname(const char *str, char *flag, char *arg) {
   int buffer = 0;
   size_t flagpos = 0;
   size_t argpos = 0;
@@ -130,8 +124,7 @@ parse_argname(const char *str, char *flag, char *arg) {
  * "foo -abc --scm git" -> "foo -a -b -c --scm git"
  */
 
-static char **
-normalize_args(int *argc, char **argv) {
+static char ** normalize_args(int *argc, char **argv) {
   int size = 0;
   int alloc = *argc + 1;
   char **nargv = malloc(alloc * sizeof(char *));
@@ -168,8 +161,7 @@ normalize_args(int *argc, char **argv) {
  * Define an option.
  */
 
-void
-command_option(command_t *self, const char *small, const char *large, const char *desc, command_callback_t cb) {
+void command_option(command_t *self, const char *small, const char *large, const char *desc, command_callback_t cb) {
   if (self->option_count == COMMANDER_MAX_OPTIONS) {
     command_free(self);
     error("Maximum option definitions exceeded");
@@ -196,8 +188,7 @@ command_option(command_t *self, const char *small, const char *large, const char
  * see `normalize_args`.
  */
 
-static void
-command_parse_args(command_t *self, int argc, char **argv) {
+static void command_parse_args(command_t *self, int argc, char **argv) {
   int literal = 0;
   int i, j;
 
@@ -261,8 +252,7 @@ command_parse_args(command_t *self, int argc, char **argv) {
  * Parse `argv` (public).
  */
 
-void
-command_parse(command_t *self, int argc, char **argv) {
+void command_parse(command_t *self, int argc, char **argv) {
   self->nargv = normalize_args(&argc, argv);
   command_parse_args(self, argc, self->nargv);
   self->argv[self->argc] = NULL;

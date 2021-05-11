@@ -55,7 +55,7 @@ typedef struct {
  * Command.
  */
 
-typedef struct command {
+typedef struct command_t{
   void *data;
   const char *usage;
   const char *arg;
@@ -70,19 +70,14 @@ typedef struct command {
 
 // prototypes
 
-void
-command_init(command_t *self, const char *name, const char *version);
+void command_init(command_t *self, const char *name, const char *version);
 
-void
-command_free(command_t *self);
+void command_free(command_t *self);
 
-void
-command_help(command_t *self);
+void command_help(command_t *self);
 
-void
-command_option(command_t *self, const char *small, const char *large, const char *desc, command_callback_t cb);
+void command_option(command_t *self, const char *small, const char *large, const char *desc, command_callback_t cb);
 
-void
-command_parse(command_t *self, int argc, char **argv);
+void command_parse(command_t *self, int argc, char **argv);
 
 #endif /* COMMANDER_H */

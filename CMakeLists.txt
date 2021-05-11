@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 2.8)
+project(commander)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=89 -Wall -Wextra")
+aux_source_directory(${PROJECT_SOURCE_DIR}/src commander_source)
+add_library(commander SHARED ${commander_source})

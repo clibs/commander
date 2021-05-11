@@ -10,6 +10,14 @@
 $ clib install clibs/commander
 ```
 
+# Build
+
+    Build this project with cmake.
+
+```
+$ mkdir build &&cd build && cmake ../
+```
+
 ## Automated --help
 
   The [example](#example) below would produce the following `--help`:
@@ -107,4 +115,3 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-

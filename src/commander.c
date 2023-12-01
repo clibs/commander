@@ -143,6 +143,15 @@ normalize_args(int *argc, char **argv) {
   for (i = 0; argv[i]; ++i) {
     const char *arg = argv[i];
     size_t len = strlen(arg);
+    
+    if(len == 2 && '-' == arg[0] && '-' == arg[1])
+    {
+        nargv[size] = malloc(len+1);
+        strcpy(nargv[size++], arg);
+        nargv[size] = malloc(strlen(argv[i+1]) + 1);
+        strcpy(nargv[size++],argv[++i]);
+        continue;
+    }
 
     // short flag
     if (len > 2 && '-' == arg[0] && !strchr(arg + 1, '-')) {
@@ -240,7 +249,9 @@ command_parse_args(command_t *self, int argc, char **argv) {
     // --
     if ('-' == arg[0] && '-' == arg[1] && 0 == arg[2]) {
       literal = 1;
-      goto match;
+      self->argv[self->argc++] = (char *) argv[i+1];
+      i++;
+      continue;
     }
 
     // unrecognized

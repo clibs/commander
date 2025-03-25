@@ -24,6 +24,10 @@
 #define COMMANDER_MAX_ARGS 32
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+namespace commander {
+#endif
 /*
  * Command struct.
  */
@@ -85,4 +89,8 @@ command_option(command_t *self, const char *small, const char *large, const char
 void
 command_parse(command_t *self, int argc, char **argv);
 
+#ifdef __cplusplus
+}
+}
+#endif /* __cplusplus */
 #endif /* COMMANDER_H */

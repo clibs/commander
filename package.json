@@ -1,6 +1,6 @@
 {
   "name": "commander",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "repo": "clibs/commander",
   "description": "Command-line argument parser",
   "keywords": ["cli", "command", "parser", "argv", "args", "options"],
